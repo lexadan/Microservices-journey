@@ -22,3 +22,12 @@ services:
     environment: 
       - MONGO_INITDB_ROOT_USERNAME=user_api
       - MONGO_INITDB_ROOT_PASSWORD=docker1234
+  api-service:
+      build: ./image_api/
+      volumes: 
+          - ./image_api/:/app
+      ports: 
+          - 5000:5000
+      environment: 
+          PORT: 5000
+          FLASK_DEBUG: 1
