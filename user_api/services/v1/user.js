@@ -20,8 +20,7 @@ exports.add = async (req, res, next) => {
     const temp = {};
 
     ({ 
-        name     : temp.name,
-        firstname: temp.firstname,
+        username: temp.username,
         email    : temp.email,
         password : temp.password
     } = req.body);
@@ -41,8 +40,7 @@ exports.update = async (req, res, next) => {
     const temp = {};
 
     ({ 
-        name     : temp.name,
-        firstname: temp.firstname,
+        username: temp.username,
         email    : temp.email,
         password : temp.password
     } = req.body);
