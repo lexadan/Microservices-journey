@@ -9,30 +9,31 @@ export default function Upload(){
 	};
 
 	const handleSubmission = () => {
-		const formData = new FormData();
-		console.log(selectedFile)
-		fetch(
-			'http://localhost:5000/store_img',
-			{
-				method: 'POST',
-				body: selectedFile,
-			}
-		)
-			.then((response) => response.json())
-			.then((result) => {
-				console.log('Success:', result);
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
+		var myHeaders = new Headers();
+		myHeaders.append("Content-Type", "image/jpeg");
+
+		var file = selectedFile;
+
+		var requestOptions = {
+		  method: 'POST',
+		  headers: myHeaders,
+		  body: file,
+		};
+
+		fetch("http://localhost:5000/store_img", requestOptions)
+		  .then(response => response.text())
+		  .then(result => console.log(result))
+		  .catch(error => console.log('error', error));
 	};
 
 	return(
         <div>
+			<form>
 			<input type="file" name="file" onChange={changeHandler} />
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>
+			</form>
 		</div>
 	);
 }
