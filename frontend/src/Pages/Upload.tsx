@@ -10,7 +10,7 @@ export default function Upload(){
 
 	const handleSubmission = () => {
 		const formData = new FormData();
-
+		console.log(selectedFile)
 		fetch(
 			'http://localhost:5000/store_img',
 			{

@@ -1,29 +1,28 @@
-import { Axios } from "axios";
-import React, { Component } from "react";
-import axios from "axios";
-class Home  extends React.Component<{}, { value: string }>{
+import React from "react";
+class Home  extends React.Component<{}, { image: string, id:string }>{
 
     constructor(props : any) {
         super(props)
-        this.state = {value: "test"}
+        this.state = {image: "", id: ""}
     }
-
-    componentDidMount(): void {
-        axios.create({
-            baseURL: 'http://localhost:5000'
-        }).get("get_file?id=qmbgxhakvuhlxitvseuy", {
-        })
-            .then(response => {
-                this.setState({value: response.status.toString()})
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+    
+    async fetchImage() {
+        const res = await fetch('http://localhost:5000/get_file?id=qmbgxhakvuhlxitvseuy'/*+ this.state.id*/);
+        const imageBlob = await res.blob();
+        const imageObjectURL = URL.createObjectURL(imageBlob);
+        this.setState({image: imageObjectURL})
+      };
 
     render() : JSX.Element {
         return(
-            <div> En attente de reception des image{this.state.value} </div>
+            <div> En attente de reception des image 
+                    <input type="id" name="id" value={this.state.id}  onChange={(e) => { this.setState({id:  e.target.value})} } />
+                    <button onClick={this.fetchImage}>On Click</button>
+                <img src={this.state.image} alt=""/>
+
+
+            </div>
+            
         )
     }
 }
