@@ -1,30 +1,30 @@
-import React from "react";
-class Home  extends React.Component<{}, { image: string, id:string }>{
+import React,{useState} from "react";
 
-    constructor(props : any) {
-        super(props)
-        this.state = {image: "", id: ""}
-    }
-    
-    async fetchImage() {
-        const res = await fetch('http://localhost:5000/get_file?id=qmbgxhakvuhlxitvseuy'/*+ this.state.id*/);
+
+export default function Home(){
+	const [id, setid] = useState("");
+	const [url, seturl] = useState("");
+
+	const changeHandler = (event : any) => {
+		setid(event.target.files[0]);
+	};
+
+    async function  fetchImage()  {
+        const res = await fetch('http://localhost:5000/get_file?id='+ id);
         const imageBlob = await res.blob();
-        const imageObjectURL = URL.createObjectURL(imageBlob);
-        this.setState({image: imageObjectURL})
+        seturl(URL.createObjectURL(imageBlob))
       };
 
-    render() : JSX.Element {
+        
         return(
-            <div> En attente de reception des image 
-                    <input type="id" name="id" value={this.state.id}  onChange={(e) => { this.setState({id:  e.target.value})} } />
-                    <button onClick={this.fetchImage}>On Click</button>
-                <img src={this.state.image} alt=""/>
+            <div> En attente de reception des image
+                
+                    <input type="text" name="id" value={id}  onChange={(e) => { setid(e.target.value)} } />
+                    <button onClick={fetchImage}>click </button>
+                <img src={url} alt=""/>
 
 
             </div>
             
         )
-    }
 }
-
-export default Home;
