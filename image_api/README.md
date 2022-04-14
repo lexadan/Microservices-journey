@@ -1,5 +1,11 @@
 # Image API documentation
 
+## Informations
+
+This API can be use to store images in base64. 
+
+You have to store on your side the *id* that is send by the api after posting an image and the *file extension* in order to be able to decode the base64 encoded string.
+
 ## Upload an image
 ### Route
 
@@ -80,7 +86,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:5000/get_file?id=fqnwvsxcbukxenerxccr", requestOptions)
+fetch("http://localhost:5000/get_file?id=fqnwvsxcbukxenerxccr,pfzrteqngwoqyktcvmfm", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
