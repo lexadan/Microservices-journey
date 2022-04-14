@@ -1,4 +1,4 @@
 .vs_code/
-*/__pychache__/
-mongo/
+**/__pycache__/
+**/mongo/
 image_api/storage/*
