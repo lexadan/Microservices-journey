@@ -66,6 +66,12 @@ fetch("http://localhost:5000/store_img", requestOptions)
 
 **GET**
 
+### With id arg
+
+### Usage
+
+Use this arg if you want to retrieve a list of images
+
 ### Example:
 
 ```js
@@ -82,8 +88,52 @@ fetch("http://localhost:5000/get_file?id=fqnwvsxcbukxenerxccr", requestOptions)
 
 ### Return Value
 
-The file
+```json
+{
+  "payload": {
+    "files": [list of base 64 encoded image]
+   }
+   "status": "success"
+}
+```
 
 ### Error Handling
  
-- The file id is unknown
+- If the file id is unknown the base 64 will me null
+
+-----
+
+### With last arg
+
+### Usage
+
+Use this arg if you want the n last images
+
+#### Example:
+
+```js
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("http://localhost:5000/get_file?last=2", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+### Return Value
+
+```json
+{
+  "payload": {
+    "files": [list of base 64 encoded image]
+   }
+   "status": "success"
+}
+```
+
+### Error Handling
+
+- Will only send available image
