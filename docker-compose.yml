@@ -12,6 +12,8 @@ services:
     command: bash -c "cd /var/www && ./node_modules/.bin/pm2 start startup.json --name API --no-daemon"
     environment:
       - URL_MONGO=mongodb://user_api:docker1234@mongo
+      - ACCESS_TOKEN_SECRET=4242XX424208
+      - REFRESH_TOKEN_SECRET=424200000X1
 
   mongo:
     image: mongo:4.0
@@ -29,6 +31,8 @@ services:
           - ./image_api/:/app
       ports: 
           - 5000:5000
+      expose:
+          - '5000'
       environment: 
           PORT: 5000
           FLASK_DEBUG: 1

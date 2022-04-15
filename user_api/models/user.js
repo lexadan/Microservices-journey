@@ -18,7 +18,7 @@ const User = new Schema({
     password: {
         type: String,
         trim: true,
-    }
+    },
 }, {
     timestamps: true // ajoute 2 champs au document createdAt et updatedAt
 });

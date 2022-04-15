@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const userRoute = require('./user');
+const imageRoute = require('./photo');
 const authRoute = require('./auth');
 
 router.get('/', async (req, res) => {
@@ -14,5 +14,6 @@ router.get('/', async (req, res) => {
 });
 
 router.use('/auth', authRoute);
+router.use('/image', imageRoute);
 
 module.exports = router;
