@@ -7,7 +7,7 @@ exports.addPhoto = async (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
-    const image = req.body.image;
+    const image = req.body;
 
     var requestOptions = {
         method: 'POST',
