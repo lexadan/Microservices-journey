@@ -21,7 +21,7 @@ def post_image():
     payload = request.data
     mime = request.headers["Content-Type"].split('/')[1]
     if not payload:
-        return json_response('error', 'Error: the is no file')
+        return json_response('error', 'Error: there is no file')
     if mime not in avalaible_mime:
         return json_response('error', f"Error: this mime type isn\'t suported, please choose one of these: {', '.join(avalaible_mime)}. See https://www.npmjs.com/package/mime-types to get mime type with filename")
 

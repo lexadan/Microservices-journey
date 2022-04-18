@@ -2,6 +2,7 @@ const express      = require('express');
 const cookieParser = require('cookie-parser');
 const logger       = require('morgan');
 const cors         = require('cors');
+var bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/v1/index');
 const mongodb     = require('./db/mongo');
@@ -14,9 +15,11 @@ app.use(cors({
     exposedHeaders: ['Authorization'],
     origin: '*'
 }));
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.raw({type: '*/*'}));
 app.use(cookieParser());
 
 app.use('/v1', indexRouter);

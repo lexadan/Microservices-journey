@@ -1,18 +1,15 @@
 const Photo = require ('../../models/photo');
 const fetch = require('node-fetch');
 const jwt = require('jsonwebtoken');
-const photo = require('../../models/photo');
 
 exports.addPhoto = async (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
-    const image = req.body;
-
     var requestOptions = {
         method: 'POST',
-        headers: {"Content-Type" : "image/jpeg"},
-        body: image,
+        headers: {"Content-Type" : req.headers['content-type']},
+        body: req.body,
         redirect: 'follow'
     };
 
@@ -20,7 +17,7 @@ exports.addPhoto = async (req, res, next) => {
         if (err) {
             return res.status(404).json('Invalid Token');
         }
-        console.log(user);
+        console.log(requestOptions);
         fetch("http://api-service:5000/store_img", requestOptions)
         .then(response => response.json())
         .then(async (result) => {
@@ -131,3 +128,4 @@ exports.getFeed = async (req, res, next) => {
     })
     .catch(error => res.status(404).json(error));
 }
+
