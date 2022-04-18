@@ -6,9 +6,9 @@ import Cookies from 'universal-cookie';
 import MyNavbar from './Pages/Navbar';
 
 function App() {
-  const cookies = new Cookies
+  const cookies = new Cookies();
 
-  if (!cookies.get("token") &&  (window.location.pathname != "/register")) {
+  if (!cookies.get("token") &&  (window.location.pathname !== "/register")) {
     return (
       <main>
       <Login />

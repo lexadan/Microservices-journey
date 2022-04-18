@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Cookies from 'universal-cookie';
 import '../App.css'
 import axios from '../axios/axios';
@@ -9,13 +9,7 @@ export default function Login() {
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
-
-    useEffect(() => {
-        setErrMsg('');
-    }, [user, pwd])
 
     const handleSubmit = async (e : any) => {
         e.preventDefault();
@@ -33,20 +27,8 @@ export default function Login() {
 
             const cookies = new Cookies();
             cookies.set('token', response.data.token, { path: '/' });
-            console.log( response.data.token)
-
             
-            setSuccess(true);
         } catch (err : any) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
         }
     }
     return(

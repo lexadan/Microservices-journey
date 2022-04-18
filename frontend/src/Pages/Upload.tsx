@@ -11,7 +11,6 @@ interface information {
 
 export default function Upload(){
 	const [selectedFile, setSelectedFile] = useState();
-	const [isFilePicked, setIsFilePicked] = useState(false);
 	const [information, setinformation] = useState<information | undefined>();
 	const changeHandler = (event : any) => {
 		setSelectedFile(event.target.files[0]);

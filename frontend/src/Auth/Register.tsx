@@ -1,50 +1,30 @@
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useState} from 'react';
 import '../App.css'
 import axios from '../axios/axios';
 const Register_URL = '/v1/auth/register';
 
 export default function Login() {
 
-    const userRef = useRef();
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [username, setUsername] = useState(''); 
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [email, pwd])
 
     const handleSubmit = async (e : any) => {
         e.preventDefault();
         let password = pwd
-        console.log(                
-            JSON.stringify({username, email, password })
-        )
         try {
-            const response = await axios.post(Register_URL,
+            await axios.post(Register_URL,
               JSON.stringify({username, email, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                 }
             );
-            console.log(JSON.stringify(response?.data));
             setEmail('');
             setPwd('');
-            setSuccess(true);
         } catch (err : any) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
         }
     }
     return(
@@ -65,7 +45,7 @@ export default function Login() {
               </div>
 
               <div className="container" style={{backgroundColor : "#f1f1f1"}}>
-                <span className="psw"><a href="#">Have already an account?</a></span>
+                <span className="psw"><a href="/login">Have already an account?</a></span>
               </div>
             </form>
 
