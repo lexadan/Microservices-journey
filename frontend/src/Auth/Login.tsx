@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 import '../App.css'
 import axios from '../axios/axios';
 const LOGIN_URL = '/v1/auth/login';
@@ -20,11 +21,6 @@ export default function Login() {
         e.preventDefault();
         let email = user
         let password = pwd
-        console.log(                
-            JSON.stringify({ email, password }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-            })
         try {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ email, password }),
@@ -32,9 +28,14 @@ export default function Login() {
                     headers: { 'Content-Type': 'application/json' },
                 }
             );
-            console.log(JSON.stringify(response));
             setUser('');
             setPwd('');
+
+            const cookies = new Cookies();
+            cookies.set('token', response.data.token, { path: '/' });
+            console.log( response.data.token)
+
+            
             setSuccess(true);
         } catch (err : any) {
             if (!err?.response) {

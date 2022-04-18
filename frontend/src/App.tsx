@@ -2,9 +2,19 @@ import Register from './Auth/Register';
 import Login from './Auth/Login';
 import Home from './Pages/Home';
 import Upload from './Pages/Upload';
+import Cookies from 'universal-cookie';
 
 function App() {
-  console.log(window.location.pathname)
+  const cookies = new Cookies
+
+  if (!cookies.get("token") &&  (window.location.pathname != "/register")) {
+    return (
+      <main>
+      <Login />
+    </main>
+    )
+  }
+
   switch (window.location.pathname) {
     case "/login": 
       return (

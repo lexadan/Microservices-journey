@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Cookies from 'universal-cookie';
 
 export default function Upload(){
 	const [selectedFile, setSelectedFile] = useState();
@@ -13,14 +14,16 @@ export default function Upload(){
 		myHeaders.append("Content-Type", "image/jpeg");
 
 		var file = selectedFile;
-
+		const cookies =  new Cookies();
 		var requestOptions = {
-		  method: 'POST',
-		  headers: myHeaders,
+		  method: "POST",
+		  headers: new Headers({
+			'Authorization': 'Bearer '+ cookies.get("token"), 
+			'Content-Type': 'image/jpeg'
+		}),
 		  body: file,
 		};
-
-		fetch("http://localhost:5000/store_img", requestOptions)
+		fetch("http://localhost:8081/v1/image/add", requestOptions)
 		  .then(response => response.text())
 		  .then(result => console.log(result))
 		  .catch(error => console.log('error', error));
