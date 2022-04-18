@@ -25,9 +25,9 @@ export default function Home(){
       };
 
         return(
-            <div> En attente de reception des image
+            <div>You can search an image :
                 <input type="text" name="id" value={id}  onChange={(e) => { setid(e.target.value)} } />
-                <button onClick={fetchImage}>click </button>
+                <button onClick={fetchImage}>click to reload or search an image </button>
                 {dataresponse?.payload.files.map((x,i) =>
                     <img src={`data:image/jpeg;base64,${x}`} key={i} alt="" />
                 )}
