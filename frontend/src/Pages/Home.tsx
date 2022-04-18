@@ -1,29 +1,36 @@
 import React,{useState} from "react";
+interface listImages {
+	files : string[];
+}
+
+interface data {
+	payload: listImages;
+	status: string;
+}
 
 
 export default function Home(){
 	const [id, setid] = useState("");
-	const [url, seturl] = useState("");
-
+    const  [dataresponse, setdataresponse] = useState<data | undefined>()
 	const changeHandler = (event : any) => {
 		setid(event.target.files[0]);
 	};
 
     async function  fetchImage()  {
-        const res = await fetch('http://localhost:5000/get_file?id='+ id);
-        const imageBlob = await res.blob();
-        seturl(URL.createObjectURL(imageBlob))
+        fetch(id.length > 0 ? 'http://localhost:5000/get_file?id='+ id :  "http://localhost:5000/get_file?last=2").then(response => {
+            response.json().then(test => {
+                setdataresponse(test);
+            })
+        });
       };
 
-        
         return(
             <div> En attente de reception des image
-                
-                    <input type="text" name="id" value={id}  onChange={(e) => { setid(e.target.value)} } />
-                    <button onClick={fetchImage}>click </button>
-                <img src={url} alt=""/>
-
-
+                <input type="text" name="id" value={id}  onChange={(e) => { setid(e.target.value)} } />
+                <button onClick={fetchImage}>click </button>
+                {dataresponse?.payload.files.map((x,i) =>
+                    <img src={`data:image/jpeg;base64,${x}`} key={i} alt="" />
+                )}
             </div>
             
         )
