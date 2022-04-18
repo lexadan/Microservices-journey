@@ -61,15 +61,11 @@ export default function Login() {
                 <label htmlFor="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" value={pwd}  onChange={(e) => setPwd(e.target.value)} required/>
 
-                <button type="submit">Login</button>
-                <label>
-                  <input type="checkbox" checked={true} name="remember"/> Remember me
-                </label>
+                <button type="submit">Register</button>
               </div>
 
               <div className="container" style={{backgroundColor : "#f1f1f1"}}>
-                <button type="button" className="cancelbtn">Cancel</button>
-                <span className="psw">Forgot <a href="#">password?</a></span>
+                <span className="psw"><a href="#">Have already an account?</a></span>
               </div>
             </form>
 

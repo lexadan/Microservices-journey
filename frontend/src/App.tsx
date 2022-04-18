@@ -3,6 +3,7 @@ import Login from './Auth/Login';
 import Home from './Pages/Home';
 import Upload from './Pages/Upload';
 import Cookies from 'universal-cookie';
+import MyNavbar from './Pages/Navbar';
 
 function App() {
   const cookies = new Cookies
@@ -18,25 +19,31 @@ function App() {
   switch (window.location.pathname) {
     case "/login": 
       return (
-        <main className="App">
+        <div className="App">
+          <MyNavbar/>
           <Login />
-        </main>
+        </div>
       );
     case "/register" : 
       return (
-      <main className="App">
+      <div className="App">
+        <MyNavbar/>
         <Register />
-      </main>
+      </div>
       );
       case "/upload" : 
         return(
-          <Upload/>
+          <div className="App">
+            <MyNavbar />
+            <Upload/>
+          </div>
         );
       case "/" :
         return(
-          <main>
+          <div className="App" >
+            <MyNavbar/>
             <Home/>
-          </main>
+          </div>
         );
     default :
     return(
