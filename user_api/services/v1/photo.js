@@ -17,7 +17,6 @@ exports.addPhoto = async (req, res, next) => {
         if (err) {
             return res.status(404).json('Invalid Token');
         }
-        console.log(requestOptions);
         fetch("http://api-service:5000/store_img", requestOptions)
         .then(response => response.json())
         .then(async (result) => {
@@ -58,7 +57,6 @@ exports.getPhotos = async (req, res, next) => {
             ids.push(photo.photoId);
         }
         let id_string = ids.join(',');
-        console.log(id_string);
         fetch(`http://api-service:5000/get_file?id=${id_string}`, requestOptions)
         .then(response => response.json())
         .then(result => {
